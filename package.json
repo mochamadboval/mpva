@@ -1,0 +1,9 @@
+{
+  "name": "mpva",
+  "version": "0.1.0",
+  "type": "module",
+  "author": "Mochamad Boval",
+  "bin": {
+    "mpva": "index.js"
+  }
+}
