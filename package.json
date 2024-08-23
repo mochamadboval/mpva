@@ -1,8 +1,18 @@
 {
   "name": "mpva",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "author": "Mochamad Boval",
+  "description": "Multi Page Vite App.",
+  "keywords": [
+    "vite",
+    "javascript"
+  ],
+  "homepage": "https://github.com/mochamadboval/mpva",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mochamadboval/mpva.git"
+  },
   "bin": {
     "mpva": "index.js"
   }
