@@ -29,27 +29,24 @@ mkdirSync(projectPath);
 chdir(projectPath);
 mkdirSync("src");
 mkdirSync("src/assets");
+mkdirSync("src/assets/fonts");
 mkdirSync("src/public");
 
 try {
   const execute = promisify(exec);
 
-  const { stdout: vite } = await execute("npm view vite@5 version --json");
-  const { stdout: glob } = await execute("npm view glob@10 version --json");
-  const { stdout: tailwindcss } = await execute(
-    "npm view tailwindcss@3 version --json"
-  );
-  const { stdout: postcss } = await execute(
-    "npm view postcss@8 version --json"
-  );
+  const viewVersion = (pkg) => `npm view ${pkg} version --json`;
+
+  const { stdout: vite } = await execute(viewVersion("vite@5"));
+  const { stdout: glob } = await execute(viewVersion("glob@10"));
+  const { stdout: tailwindcss } = await execute(viewVersion("tailwindcss@3"));
+  const { stdout: postcss } = await execute(viewVersion("postcss@8"));
   const { stdout: autoprefixer } = await execute(
-    "npm view autoprefixer@10 version --json"
+    viewVersion("autoprefixer@10")
   );
-  const { stdout: prettier } = await execute(
-    "npm view prettier@3 version --json"
-  );
+  const { stdout: prettier } = await execute(viewVersion("prettier@3"));
   const { stdout: prettierPluginTailwindcss } = await execute(
-    "npm view prettier-plugin-tailwindcss@0 version --json"
+    viewVersion("prettier-plugin-tailwindcss@0")
   );
 
   const getLatest = (pkg) => `^${JSON.parse(pkg).at(-1)}`;
@@ -103,13 +100,13 @@ try {
   createRedirects.write("/* /404.html 200");
   createRedirects.end();
 
-  const createCSS = createWriteStream("./src/assets/style.css");
+  const createCSS = createWriteStream("./src/style.css");
   createCSS.write(
     "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n"
   );
   createCSS.end();
 
-  const createJS = createWriteStream("./src/assets/main.js");
+  const createJS = createWriteStream("./src/main.js");
   createJS.write("console.log('Multi Page Vite App');\n");
   createJS.end();
 
